@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Run Tests (Shard ${{ matrix.shard }})
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -73,7 +73,7 @@ jobs:
         name: playwright-final-report
         path: playwright-report
         retention-days: 15
-        
+
   deploy-pages:
     name: Deploy Report to GitHub Pages
     needs: merge-reports
