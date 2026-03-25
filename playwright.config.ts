@@ -21,16 +21,16 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.BASE_URL || 'https://trade.multibank.io',
-    trace: 'retain-on-failure',
-    screenshot: 'only-on-failure',
+    trace: 'on-first-retry',
+    screenshot: 'on',
     video: 'retain-on-failure',
     actionTimeout: 15_000,
   },
 
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    // { name: 'webkit', use: { ...devices['Desktop Safari'] } },
     // { name: 'Mobile Chrome', use: { ...devices['Pixel 5'] } },
   ],
 });
