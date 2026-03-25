@@ -59,27 +59,22 @@ test.describe('Registration - Register Page', () => {
     for (const data of tc03Scenarios) {
       test(`Combination: ${data.id}`, async ({ registerPage, page }) => {
 
-        // 1. Fill form (without submitting)
         await registerPage.fillForm('jane.doe@multibank.io', 'Q@Testes2026!');
         await registerPage.checkTerms(true);
 
-        // 2. Toggle password visibility
         if (data.toggle) {
           await registerPage.togglePasswordVisibility();
         }
 
-        // 3. UI check
         const inputType = await registerPage.getPasswordInputType();
         expect(inputType).toBe(data.expectType);
 
-        // 4. Submit using existing method
         if (data.method === 'click') {
           await registerPage.clickNext();
         } else if (data.method === 'enter') {
           await registerPage.pressEnterOnForm();
         }
 
-        // 5. Security check (Puzzle)
         const captcha = await registerPage.getCaptchaElement();
         await expect(captcha).toBeVisible({ timeout: 10_000 });
       });
