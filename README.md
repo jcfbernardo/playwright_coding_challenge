@@ -7,6 +7,11 @@
 
 End-to-end test automation suite built for the **MultiBank Group QA Challenge**, covering the trading platform ([trade.multibank.io](https://trade.multibank.io)) and the institutional website ([mb.io](https://mb.io/en)). The project is written in **TypeScript** using **Playwright**, following the **Page Object Model** pattern extended with **Dependency Injection via Fixtures**, and applies industry-standard testing techniques such as **Equivalence Partitioning**, **Boundary Value Analysis**, **Pairwise Testing**, and **Data-Driven Testing**.
 
+> 📊 **Live E2E Test Report:** Click here to view the latest execution dashboard hosted on GitHub Pages!  
+> 👉 **[View Playwright HTML Report](https://jcfbernardo.github.io/playwright_coding_challenge/)**
+
+*Note: The report is automatically generated and deployed by GitHub Actions after every push to the main branch.*
+
 ---
 
 ## Prerequisites
@@ -224,19 +229,20 @@ Playwright's native HTML reporter captures screenshots automatically at the end 
 
 ## CI/CD
 
-The project ships with a **GitHub Actions** workflow that runs on every push and pull request to `main`:
+The project ships with a **GitHub Actions** workflow (`playwright.yml`) that runs on every push and pull request to `main` and `master`. It features an advanced pipeline tailored for performance and accessibility:
 
-- Installs Node 20 and Playwright browsers
-- Executes the full test suite
-- Uploads the HTML report as a downloadable artifact (15-day retention)
+- **Parallel Execution (Sharding):** The test suite is split into 3 concurrent shards (`shard: [1/3, 2/3, 3/3]`) to significantly reduce execution time.
+- **Unified Reporting:** Merges individual blob reports from all shards into a single, cohesive HTML report.
+- **Artifact Storage:** Uploads the unified HTML report as a downloadable artifact (15-day retention).
+- **GitHub Pages Deployment:** Automatically deploys the final HTML report to GitHub Pages upon successful merges to the `main` or `master` branches.
 
 ```yaml
 # .github/workflows/playwright.yml
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
+    branches: [ main, master ]
 ```
 
 ---
