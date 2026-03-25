@@ -31,9 +31,7 @@ jobs:
       run: npx playwright install --with-deps
       
     - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shard }}
-      env:
-        PLAYWRIGHT_HTML_REPORT: blob
+      run: npx playwright test --shard=${{ matrix.shard }} --reporter=blob
       
     - name: Upload blob report to GitHub Actions Artifacts
       if: always()
